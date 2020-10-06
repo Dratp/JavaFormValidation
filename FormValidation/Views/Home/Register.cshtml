@@ -1,0 +1,187 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>New User Registration</title>
+
+    <script>
+        function Validate() {
+            if (FirstNameValid() == false) {
+                return false;
+            }
+            else if (LastNameValid() == false) {
+                return false;
+            }
+            else if (emailValid() == false) {
+                return false;
+            }
+            else if (passwordLengthValid() == false) {
+                return false;
+            }
+            else if (passwordValid() == false) {
+                return false;
+            }
+            else if (passwordMatch() == false) {
+                return false;
+            }
+        }
+
+        function FirstNameValid() {
+            let fn = document.getElementById("fNameElem");
+            if (fn.value.length < 2) {
+                let fwarning = document.getElementById('FNameWarning');
+                fwarning.innerHTML = "The first name must contain at lease 2 charaters"
+                return false;
+            }
+            else {
+                let fwarning = document.getElementById('FNameWarning');
+                fwarning.innerHTML = ""
+                return true;
+            }
+        }
+        function LastNameValid() {
+            let ln = document.getElementById("lNameElem");
+            if (ln.value.length < 2) {
+                let lwarning = document.getElementById('LNameWarning');
+                lwarning.innerHTML = "The last name must contain at lease 2 charaters"
+                return false;
+            }
+            else {
+                let lwarning = document.getElementById('LNameWarning');
+                lwarning.innerHTML = ""
+                return true;
+            }
+        }
+        function emailValid() {
+            let em = document.getElementById("eMailElem");
+            const aregex = /^\w{5,30}@@\w{5,15}\.\w{2,3}$/g;
+            let found = em.value.match(aregex);
+
+            if (found == null) {
+                let ewarn = document.getElementById('EWarning');
+                ewarn.innerHTML = "E-mail is not Valid";
+                return false;
+            }
+            else {
+                let ewarn = document.getElementById('EWarning');
+                ewarn.innerHTML = "";
+            }
+        }
+        function passwordLengthValid() {
+            let p1 = document.getElementById("pass1Elem");
+            if (p1.value.length < 8) {
+                let pwarn = document.getElementById('PassWarning');
+                pwarn.innerHTML = "Please enter a password that is at least 8 charaters long";
+                return false;
+            }
+            else {
+                let pwarn = document.getElementById('PassWarning');
+                pwarn.innerHTML = "";
+                return true;
+            }
+        }
+        function passwordValid() {
+            let p11 = document.getElementById("pass1Elem");
+            //Password Validation
+            //Upper
+            const Uregex = /[A-Z]/g;
+            const foundu = p11.value.match(Uregex);
+
+            //Lower
+            const Lregex = /[a-z]/g;
+            let foundl = p11.value.match(Lregex);
+
+            //Number
+            const Nregex = /[0-9]/g;
+            let foundn = p11.value.match(Nregex);
+
+            //Symbol
+            const Sregex = /[^A-Za-z0-9_]/g;
+            let founds = p11.value.match(Sregex);
+
+            let passwarn = "The password does not contain: ";
+            if (foundu == null) {
+                passwarn = passwarn + " an Upper Case charater";
+            }
+            if (foundl == null) {
+                passwarn = passwarn + " a Lower Case charater";
+            }
+            if (foundn == null) {
+                passwarn = passwarn + " a Number";
+            }
+            if (founds == null) {
+                passwarn = passwarn + " a Symbol";
+            }
+
+            if (passwarn.length > 32) {
+                let pwarn = document.getElementById('PassWarning');
+                pwarn.innerHTML = passwarn;
+                return false;
+            }
+            else {
+                let pwarn = document.getElementById('PassWarning');
+                pwarn.innerHTML = "";
+                return true;
+            }
+        }
+        function passwordMatch() {
+            let pass1 = document.getElementById("pass1Elem");
+            let pass2 = document.getElementById("pass2Elem");
+            if (pass1.value != pass2.value) {
+                let pconfirm = document.getElementById('Pass2Warning');
+                pconfirm.innerHTML = "The Passwords do not match";
+                return false;
+            }
+            else {
+                let pconfirm = document.getElementById('Pass2Warning');
+                pconfirm.innerHTML = "";
+                return true;
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <h1>Resgister</h1>
+    <div>
+    <form method="post" action="/home/welcome" onsubmit="return Validate()">
+        First Name: <input type="text" name="fName" id="fNameElem" />
+        <div id="FNameWarning" class="warningmessage">
+            <p></p>
+        </div>
+        <br />
+        Last Name: <input type="text" name="lName" id="lNameElem" />
+        <div id="LNameWarning">
+            <div class="warningmessage">
+                <p color="red"></p>
+            </div>
+        </div>
+        <br />
+        E-mail: <input type="text" name="eMail" id="eMailElem" />
+        <div id="EWarning" class="warningmessage">
+            <p></p>
+        </div>
+        <br />
+        Password: <input type="text" name="pass1" id="pass1Elem" />
+        <div id="PassWarning" class="warningmessage">
+            <p></p>
+        </div>
+        <br />
+        Confirm Password: <input type="text" name="pass2" id="pass2Elem" />
+        <div id="Pass2Warning" class="warningmessage">
+            <p></p>
+        </div>
+        <br />
+        <input type="submit" value="Register" />
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿@model User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+</head>
+<body>
+    <h2>Welcome @Model.FirstName @Model.LastName</h2>
+    <p>We have sent an e-mail to @Model.EMail for confirmation</p>
+
+    <p>Did this lab really want me to display the password?  @Model.Pass</p>
+</body>
+</html>
